@@ -1,0 +1,11 @@
+.song-line {
+  margin-bottom: 1rem;
+  line-height: 1.2; /* Reduce spacing between chord and lyric lines */
+}
+
+.song-text {
+  font-family: monospace;
+  white-space: pre-wrap;
+  margin: 0;
+  padding: 0;
+}
