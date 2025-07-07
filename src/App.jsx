@@ -28,7 +28,10 @@
 // export default App;
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import SongList from "./components/SongList";
+import SongListLang from "./components/SongListLang";
 import AddSongPage from "./components/AddSongPage";
+import UpdateSongPage from "./components/UpdateSongPage";
+import AddSongPageNoEn from "./components/AddSongPageNoEn";
 
 const App = () => {
   return (
@@ -40,7 +43,11 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<SongList />} />
-        <Route path="/add" element={<AddSongPage />} />
+        <Route path="/lang" element={<SongListLang />} />
+        <Route path="/add" element={<UpdateSongPage />} />
+        <Route path="/update" element={<UpdateSongPage />} />
+        <Route path="/updateNoEn" element={<AddSongPageNoEn />} />
+        
       </Routes>
     </Router>
   );
