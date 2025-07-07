@@ -32,13 +32,16 @@ import SongListLang from "./components/SongListLang";
 import AddSongPage from "./components/AddSongPage";
 import UpdateSongPage from "./components/UpdateSongPage";
 import AddSongPageNoEn from "./components/AddSongPageNoEn";
+import AddSongFromImage from "./components/AddSongFromImage";
 
 const App = () => {
   return (
     <Router>
       <nav style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
         <Link to="/" style={{ marginRight: "10px" }}>Song List</Link>
-        <Link to="/add">Add New Song</Link>
+        <Link to="/add"style={{ marginRight: "10px" }}>Add New Song</Link>
+        <Link to="/update"style={{ marginRight: "10px" }}>Update Song</Link>
+        <Link to="/add-from-image"style={{ marginRight: "10px" }}>Add Song from Image</Link>
       </nav>
 
       <Routes>
@@ -47,6 +50,7 @@ const App = () => {
         <Route path="/add" element={<UpdateSongPage />} />
         <Route path="/update" element={<UpdateSongPage />} />
         <Route path="/updateNoEn" element={<AddSongPageNoEn />} />
+        <Route path="/add-from-image" element={<AddSongFromImage />} />
         
       </Routes>
     </Router>
