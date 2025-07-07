@@ -5,15 +5,23 @@ import jsPDF from 'jspdf';
 const CHORDS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 function transposeChord(chord, steps) {
-  const index = CHORDS.indexOf(chord.toUpperCase());
+  const match = chord.match(/^([A-G]#?)(m|maj7|m7|sus4|dim|aug|7)?$/i);
+  if (!match) return chord;
+  const root = match[1];
+  const suffix = match[2] || '';
+  const index = CHORDS.indexOf(root.toUpperCase());
   if (index === -1) return chord;
   const newIndex = (index + steps + CHORDS.length) % CHORDS.length;
-  return CHORDS[newIndex];
+  return CHORDS[newIndex] + suffix;
 }
 
 function transposeLine(line, steps) {
-  return line.replace(/\b([A-G]#?)\b/g, match => transposeChord(match, steps));
+  return line.replace(/\b([A-G]#?(m|maj7|m7|sus4|dim|aug|7)?)\b/g, match => transposeChord(match, steps));
 }
+
+// function parseMarkdownLyrics(line) {
+//   return line.replace(/\[([A-G#]+)\]/g, (match, chord) => `<span class="chord-inline">${chord}</span>`);
+// }
 
 function parseMarkdownLyrics(line) {
   return line.replace(/\[([A-G#]+)\]/g, (match, chord) => `<span class="chord-inline">${chord}</span>`);
