@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
 const api = axios.create({
-  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 const CHORDS = [
   "C",
@@ -50,6 +50,9 @@ function SongList() {
   const [showChords, setShowChords] = useState(true);
   const [language, setLanguage] = useState("tamil"); // "tamil" or "tanglish"
   const [searchTerm, setSearchTerm] = useState("");
+
+  console.log("API base URL:", import.meta.env.VITE_API_BASE_URL);
+
   useEffect(() => {
   api
     .get("api/songs/first5")
