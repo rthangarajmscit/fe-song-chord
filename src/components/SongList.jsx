@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
-
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
 const CHORDS = [
   "C",
   "C#",
@@ -49,16 +51,16 @@ function SongList() {
   const [language, setLanguage] = useState("tamil"); // "tamil" or "tanglish"
   const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
-  axios
-    .get("http://localhost:8080/api/songs/first5")
+  api
+    .get("api/songs/first5")
     .then((response) => setSongs(response.data))
     .catch((error) => console.error("Error fetching songs:", error));
 }, []);
 
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/songs")
+    api
+      .get("api/songs")
       .then((response) => setSongs(response.data))
       .catch((error) => console.error("Error fetching songs:", error));
   }, []);
@@ -83,8 +85,8 @@ function SongList() {
   }
 
   function handleSearch() {
-  axios
-    .get(`http://localhost:8080/api/songs/search?title=${encodeURIComponent(searchTerm)}`)
+  api
+    .get(`api/songs/search?title=${encodeURIComponent(searchTerm)}`)
     .then((response) => setSongs(response.data))
     .catch((error) => console.error("Error searching songs:", error));
 }

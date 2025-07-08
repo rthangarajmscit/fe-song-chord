@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
 const AddSongPageSingle = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("Tamil");
@@ -27,7 +30,7 @@ const [linesTanglish, setLinesTanglish] = useState([{ chordLine: "", lyricLine: 
     e.preventDefault();
     const songData = { title, language, lines };
     try {
-      await axios.post("http://localhost:8080/api/songs", songData);
+      await api.post("api/songs", songData);
       alert("Song saved successfully!");
       setTitle("");
       setLanguage("Tamil");
@@ -47,7 +50,7 @@ const [linesTanglish, setLinesTanglish] = useState([{ chordLine: "", lyricLine: 
       : { title, linesTamil: [], linesTanglish: lines };
 
   try {
-    await axios.post("http://localhost:8080/api/songs", songData);
+    await api.post("api/songs", songData);
     alert("Song saved successfully!");
     setTitle("");
     setLanguage("Tamil");
@@ -68,7 +71,7 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    await axios.post("http://localhost:8080/api/songs", songData);
+    await api.post("api/songs", songData);
     alert("Song saved successfully!");
     setTitle("");
     setLinesTamil([{ chordLine: "", lyricLine: "" }]);

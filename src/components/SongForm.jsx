@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
 const SongForm = () => {
   const [title, setTitle] = useState('');
   const [lines, setLines] = useState([
@@ -20,7 +22,7 @@ const SongForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/songs', {
+      const response = await api.post('api/songs', {
         title,
         lines
       });

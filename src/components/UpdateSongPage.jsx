@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
 const UpdateSongPage = () => {
   const [title, setTitle] = useState("");
   const [linesTamil, setLinesTamil] = useState([{ chordLine: "", lyricLine: "" }]);
@@ -9,7 +11,7 @@ const UpdateSongPage = () => {
   const [selectedSongId, setSelectedSongId] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/songs").then((res) => setSongs(res.data));
+    api.get("api/songs").then((res) => setSongs(res.data));
   }, []);
 
   const handleLineChange = (type, index, field, value) => {
@@ -33,17 +35,17 @@ const UpdateSongPage = () => {
     const songData = { title, linesTamil, linesTanglish };
     try {
       if (selectedSongId) {
-        await axios.put(`http://localhost:8080/api/songs/${selectedSongId}`, songData);
+        await api.put(`api/songs/${selectedSongId}`, songData);
         alert("Song updated successfully!");
       } else {
-        await axios.post("http://localhost:8080/api/songs", songData);
+        await api.post("api/songs", songData);
         alert("Song saved successfully!");
       }
       setTitle("");
       setLinesTamil([{ chordLine: "", lyricLine: "" }]);
       setLinesTanglish([{ chordLine: "", lyricLine: "" }]);
       setSelectedSongId(null);
-      const res = await axios.get("http://localhost:8080/api/songs");
+      const res = await api.get("api/songs");
       setSongs(res.data);
     } catch (err) {
       console.error(err);

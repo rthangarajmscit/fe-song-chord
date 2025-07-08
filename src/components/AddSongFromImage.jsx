@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import Tesseract from "tesseract.js";
 import axios from "axios";
 
+
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
+
 const AddSongFromImage = () => {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -96,7 +101,7 @@ const AddSongFromImage = () => {
         linesTamil,
       };
 
-      await axios.post("http://localhost:8080/api/songs", song);
+      await api.post("api/songs", song);
       setStatus("✅ Song saved successfully!");
     } catch (err) {
       console.error(err);
@@ -154,7 +159,7 @@ const AddSongFromImage = () => {
       linesTamil,
     };
 
-    await axios.post("http://localhost:8080/api/songs", song);
+    await api.post("api/songs", song);
     setStatus("✅ Song saved successfully!");
   } catch (err) {
     console.error(err);

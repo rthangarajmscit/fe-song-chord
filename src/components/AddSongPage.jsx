@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+const api = axios.create({
+  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+});
 const AddSongPage = () => {
   const [title, setTitle] = useState("");
   const [linesTamil, setLinesTamil] = useState([""]);
@@ -33,7 +35,7 @@ const AddSongPage = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/api/songs", song);
+      await api.post("api/songs", song);
       setMessage("✅ Song added successfully!");
       setTitle("");
       setLinesTamil([""]);
